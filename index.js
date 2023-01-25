@@ -7,7 +7,16 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-    res.json('hello world')
+    res.json({
+        message: 'hello world'
+    })
+})
+
+app.get('*', (req, res) => {
+    res.status(404).json({
+        status: 404,
+        message: 'Page Not Found'
+    })
 })
 
 app.listen(process.env.PORT, (err) => {
@@ -15,3 +24,5 @@ app.listen(process.env.PORT, (err) => {
         console.log('Connected to port ' + process.env.PORT)
     }
 })
+
+module.exports = app
