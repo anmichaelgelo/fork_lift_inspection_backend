@@ -8,6 +8,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // Controllers
 app.use('/daily_checklist', require('./controllers/daily_checklist_controller'))
+app.use('/items', require('./controllers/item_controller'))
 
 app.get('/', (req, res) => {
     res.json({
