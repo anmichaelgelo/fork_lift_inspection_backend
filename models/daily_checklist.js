@@ -10,6 +10,10 @@ let dailyChecklistSchema = new mongoose.Schema({
     hour_meter: { type: Object, default: { start: "", end: "", total_hours: "" }},
     operated_by: { type: String, required: true },
     supervised_by: { type: String, required: true },
+    defective_items: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'DefectiveItem'
+    }],
     created_at: { type: Date, default: getTimestamp() },
     updated_at: { type: Date, default: getTimestamp() }
 })
