@@ -7,7 +7,11 @@ let dailyChecklistSchema = new mongoose.Schema({
     shift: { type: String, default: '' },
     is_internal_combustion: { type: Boolean, default: false},
     is_electric: { type: Boolean, default: false},
-    hour_meter: { type: Object, default: { start: "", end: "", total_hours: "" }},
+    hour_meter: { type: Object, default: { 
+        start: "", 
+        end: "", 
+        total_hours: "" 
+    }},
     operated_by: { type: String, required: true },
     supervised_by: { type: String, required: true },
     defective_items: [{
