@@ -12,3 +12,7 @@ mongoose.connect(connectionString, {
         console.log('connected to ' + connectionString)
     }
 });
+
+module.exports.DailyChecklist = require('./daily_checklist')
+module.exports.Item = require('./items')
+module.exports.DefectiveItem = require('./defective_item')
