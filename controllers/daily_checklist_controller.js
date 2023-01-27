@@ -1,6 +1,9 @@
 const checklist = require('express').Router()
 const db = require('../models')
 
+ // add getTimestamp function in helpers.js for getting the timestamp
+const { getTimestamp } = require('../lib/helpers')
+
 // INDEX
 checklist.get('/', (req, res) => {
     db.DailyChecklist.find()
@@ -19,6 +22,7 @@ checklist.get('/', (req, res) => {
 checklist.post('/', (req, res) => {
     db.DailyChecklist.create(req.body)
         .then(createdChecklist => {
+            createdChecklist.createAt
             res.status(200).json({
                 data: createdChecklist,
                 message: 'Checklist added successfully'

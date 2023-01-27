@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const { getTimestamp } = require('../lib/helpers')
 
+// Create Schema
 let dailyChecklistSchema = new mongoose.Schema({
     truck_no: { type: Number, required: true },
     building_no: { type: Number, required: true },
@@ -14,14 +14,13 @@ let dailyChecklistSchema = new mongoose.Schema({
     }},
     operated_by: { type: String, required: true },
     supervised_by: { type: String, required: true },
-    defective_items: [{
+    defective_items: [{ // Reference DefectiveItem Model
         type: mongoose.Schema.Types.ObjectId,
         ref: 'DefectiveItem'
-    }],
-    created_at: { type: Date, default: getTimestamp() },
-    updated_at: { type: Date, default: getTimestamp() }
-})
+    }]
+}, { timestamps: true })
 
+// Create Model from Schema
 const DailyChecklist = mongoose.model('DailyChecklist', dailyChecklistSchema)
 
 module.exports = DailyChecklist
