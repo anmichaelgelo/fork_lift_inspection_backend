@@ -10,12 +10,14 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/daily_checklist', require('./controllers/daily_checklist_controller'))
 app.use('/items', require('./controllers/item_controller'))
 
+// Root Index
 app.get('/', (req, res) => {
     res.json({
         message: 'hello world'
     })
 })
 
+// 404 status
 app.get('*', (req, res) => {
     res.status(404).json({
         status: 404,
@@ -23,6 +25,7 @@ app.get('*', (req, res) => {
     })
 })
 
+// listen to port
 app.listen(process.env.PORT, (err) => {
     if(!err){
         console.log('Connected to port ' + process.env.PORT)
