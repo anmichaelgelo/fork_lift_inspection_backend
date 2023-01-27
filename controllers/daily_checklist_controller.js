@@ -17,12 +17,24 @@ checklist.get('/', (req, res) => {
 
 // STORE
 checklist.post('/', (req, res) => {
-    db.DailyChecklist.create(req.body)
+    db.DailyChecklist.create(req.body.daily_checklist)
         .then(createdChecklist => {
-            res.status(200).json({
-                data: createdChecklist,
-                message: 'Checklist added successfully'
-            })
+
+            db.DefectiveItem.create(req.body.defective_items)
+                .then(item => {
+                    createdChecklist.defective_items.push(item.id)
+                    createdChecklist.save()
+                        .then(() => {
+                            res.status(200).json({
+                                message: 'Checklist added successfully'
+                            })
+                        })
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        message: err
+                    })
+                })
         })
         .catch(err => {
             res.status(500).json({
@@ -64,6 +76,11 @@ checklist.put(':/key', (req, res) => {
 checklist.delete(':/key', (req, res) => {
     db.DailyChecklist.findByIdAndDelete(req.params.key)
         .then(checklist => {
+            // db.DefectiveItem.find({
+            //     $where: () => {
+            //         return (checklist.defective_items.id == DefectiveItem)
+            //     }
+            // })
             res.status(200).json({
                 message: 'Checklist deleted successfully'
             })
