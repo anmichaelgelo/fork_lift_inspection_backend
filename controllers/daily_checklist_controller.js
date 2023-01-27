@@ -1,9 +1,6 @@
 const checklist = require('express').Router()
 const db = require('../models')
 
- // add getTimestamp function in helpers.js for getting the timestamp
-const { getTimestamp } = require('../lib/helpers')
-
 // INDEX
 checklist.get('/', (req, res) => {
     db.DailyChecklist.find()
