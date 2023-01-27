@@ -19,7 +19,6 @@ checklist.get('/', (req, res) => {
 checklist.post('/', (req, res) => {
     db.DailyChecklist.create(req.body)
         .then(createdChecklist => {
-            createdChecklist.createAt
             res.status(200).json({
                 data: createdChecklist,
                 message: 'Checklist added successfully'
