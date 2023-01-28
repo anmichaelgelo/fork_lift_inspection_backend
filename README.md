@@ -1,4 +1,5 @@
 # Forklift Inspection
+### API URI: https://fork-lift-inspection-backend.vercel.app
 
 ## API ROUTES
 ### Daily Checklist
@@ -90,8 +91,7 @@
 
 ## Create/Update a daily checklist record
 <code id="post-checklist">
-{
-    "daily_checklist": {
+{"daily_checklist": {
         "truck_no": 123,
         "building_no": 321,
         "shift": "",
@@ -108,6 +108,5 @@
     "defective_items": {
         "items": ["item_1", "item_2", "item_3", "item_4"],
         "details": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
-    }
-}
+    }}
 </code>
