@@ -17,12 +17,13 @@ checklist.get('/', (req, res) => {
 
 // STORE
 checklist.post('/', (req, res) => {
+    // res.json(req.body.defective_items)
     db.DailyChecklist.create(req.body.daily_checklist)
         .then(createdChecklist => {
 
             db.DefectiveItem.create(req.body.defective_items)
                 .then(item => {
-                    createdChecklist.defective_items.push(item.id)
+                    createdChecklist.defective_items = item
                     createdChecklist.save()
                         .then(() => {
                             res.status(200).json({
@@ -32,13 +33,13 @@ checklist.post('/', (req, res) => {
                 })
                 .catch(err => {
                     res.status(500).json({
-                        message: err
+                        message: 'Defective Item error: ' + err.message
                     })
                 })
         })
         .catch(err => {
             res.status(500).json({
-                message: err
+                message: 'Checklist error: ' + err.message
             })
         })
 });
