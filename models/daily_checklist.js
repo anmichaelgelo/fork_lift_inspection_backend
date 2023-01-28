@@ -14,10 +14,10 @@ let dailyChecklistSchema = new mongoose.Schema({
     }},
     operated_by: { type: String, required: true },
     supervised_by: { type: String, required: true },
-    defective_items: [{ // Reference DefectiveItem Model
+    defective_items: { // Reference DefectiveItem Model
         type: mongoose.Schema.Types.ObjectId,
         ref: 'DefectiveItem'
-    }]
+    }
 }, { timestamps: true })
 
 // Create Model from Schema
