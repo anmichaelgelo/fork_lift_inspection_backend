@@ -110,12 +110,19 @@ checklist.put('/:key', (req, res) => {
 checklist.delete('/:key', (req, res) => {
     db.DailyChecklist.findByIdAndDelete(req.params.key)
         .then(checklist => {
-            db.DefectiveItem.findByIdAndDelete(checklist.defective_items)
-                .then(() => {
-                    res.status(200).json({
-                        message: 'Checklist deleted successfully'
+            if(checklist !== null) {
+                db.DefectiveItem.findByIdAndDelete(checklist.defective_items)
+                    .then(() => {
+                        res.status(200).json({
+                            message: 'Checklist deleted successfully'
+                        })
                     })
+            }else{
+                res.status(404).json({
+                    message: 'No record found',
+                    data: null
                 })
+            }
         })
         .catch(err => {
             res.status(500).json({
