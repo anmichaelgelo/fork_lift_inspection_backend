@@ -5,8 +5,18 @@ const db = require('../models')
 checklist.get('/', (req, res) => {
     db.DailyChecklist.find()
         .then(checklist => {
-            console.log('index', checklist)
-            res.json(checklist)
+            if(checklist.length > 0) {
+                res.status(200).json({
+                    count: checklist.length,
+                    data: checklist
+                })
+            }else{
+                res.status(404).json({
+                    count: 0,
+                    message: 'No records found',
+                    data: []
+                })
+            }
         })
         .catch(err => {
             res.status(500).json({
@@ -17,13 +27,12 @@ checklist.get('/', (req, res) => {
 
 // STORE
 checklist.post('/', (req, res) => {
-    // res.json(req.body.defective_items)
     db.DailyChecklist.create(req.body.daily_checklist)
         .then(createdChecklist => {
 
             db.DefectiveItem.create(req.body.defective_items)
                 .then(item => {
-                    createdChecklist.defective_items = item
+                    createdChecklist.defective_items = item.id;
                     createdChecklist.save()
                         .then(() => {
                             res.status(200).json({
@@ -33,23 +42,32 @@ checklist.post('/', (req, res) => {
                 })
                 .catch(err => {
                     res.status(500).json({
-                        message: 'Defective Item error: ' + err.message
+                        message: err
                     })
                 })
         })
         .catch(err => {
             res.status(500).json({
-                message: 'Checklist error: ' + err.message
+                message: err
             })
         })
 });
 
 // SHOW
-checklist.get(':/key', (req, res) => {
+checklist.get('/:key', (req, res) => {
     db.DailyChecklist.findById(req.params.key)
         .populate('defective_items')
         .then(checklist => {
-            res.status(200).json(checklist)
+            if(checklist !== null) {
+                res.status(200).json({
+                    data: checklist
+                })   
+            }else{
+                res.status(404).json({
+                    message: 'No record found',
+                    data: null
+                })
+            }         
         })
         .catch(err => {
             res.status(500).json({
@@ -59,12 +77,27 @@ checklist.get(':/key', (req, res) => {
 });
 
 // UPDATE
-checklist.put(':/key', (req, res) => {
-    db.DailyChecklist.findByIdAndUpdate(req.params.key, req.body)
+checklist.put('/:key', (req, res) => {
+    db.DailyChecklist.findByIdAndUpdate(req.params.key, req.body.daily_checklist)
         .then(checklist => {
-            res.status(200).json({
-                message: 'Checklist updated successfully'
-            })
+            if(checklist !== null) {
+                res.json({
+                    data: checklist,
+                    message: 'Checklist updated successfully'
+                })
+
+                db.DefectiveItem.findByIdAndUpdate(checklist.defective_items, req.body.defective_items)
+                    .then(() => {
+                        res.status(200).json({
+                            message: 'Checklist updated successfully'
+                        })
+                    })
+            }else{
+                res.status(404).json({
+                    message: 'No record found',
+                    data: null
+                })
+            }
         })
         .catch(err => {
             res.status(500).json({
@@ -74,17 +107,15 @@ checklist.put(':/key', (req, res) => {
 });
 
 // DELETE
-checklist.delete(':/key', (req, res) => {
+checklist.delete('/:key', (req, res) => {
     db.DailyChecklist.findByIdAndDelete(req.params.key)
         .then(checklist => {
-            // db.DefectiveItem.find({
-            //     $where: () => {
-            //         return (checklist.defective_items.id == DefectiveItem)
-            //     }
-            // })
-            res.status(200).json({
-                message: 'Checklist deleted successfully'
-            })
+            db.DefectiveItem.findByIdAndDelete(checklist.defective_items)
+                .then(() => {
+                    res.status(200).json({
+                        message: 'Checklist deleted successfully'
+                    })
+                })
         })
         .catch(err => {
             res.status(500).json({
