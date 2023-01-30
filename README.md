@@ -1,5 +1,5 @@
 # Forklift Inspection
-### API URI: https://fork-lift-inspection-backend.vercel.app
+### API URI: https://forklift-inspection-backend.vercel.app
 
 ## API ROUTES
 ### Daily Checklist
