@@ -1,8 +1,17 @@
+const cors = require('cors')
 const express = require('express')
 const app = express()
 
 // Middleware / Config
 require('dotenv').config()
+
+const corsOptions = { // http://expressjs.com/en/resources/middleware/cors.html
+    origin: [
+        'http://localhost:3000'
+    ],
+}
+
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
