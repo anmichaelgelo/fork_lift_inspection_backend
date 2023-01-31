@@ -11,7 +11,7 @@ checklist.get('/', (req, res) => {
                     data: checklist
                 })
             }else{
-                res.status(404).json({
+                res.json({
                     count: 0,
                     message: 'No records found',
                     data: []
@@ -61,7 +61,7 @@ checklist.get('/:key', (req, res) => {
             if(checklist !== null) {
                 res.status(200).json({
                     data: checklist
-                })   
+                })
             }else{
                 res.status(404).json({
                     message: 'No record found',
