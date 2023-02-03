@@ -27,18 +27,19 @@ inspections.get('/', (req, res) => {
 
 // STORE
 inspections.post('/', (req, res) => {
-    db.Inspection.create(req.body)
-        .then(inspection => {
-            res.status(200).json({
-                data: inspection,
-                message: 'Inspection added successfully'
-            })
-        })
-        .catch(err => {
-            res.status(500).json({
-                message: err
-            })
-        })
+    res.json(req.body)
+    // db.Inspection.create(req.body)
+    //     .then(inspection => {
+    //         res.status(200).json({
+    //             data: inspection,
+    //             message: 'Inspection added successfully'
+    //         })
+    //     })
+    //     .catch(err => {
+    //         res.status(500).json({
+    //             message: err
+    //         })
+    //     })
 });
 
 // SHOW
