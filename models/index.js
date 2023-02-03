@@ -13,6 +13,4 @@ mongoose.connect(connectionString, {
     }
 });
 
-module.exports.DailyChecklist = require('./daily_checklist')
-module.exports.Item = require('./items')
-module.exports.DefectiveItem = require('./defective_item')
+module.exports.Inspection = require('./inspection')

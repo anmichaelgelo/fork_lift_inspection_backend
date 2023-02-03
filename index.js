@@ -16,13 +16,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Controllers
-app.use('/daily_checklist', require('./controllers/daily_checklist_controller'))
-app.use('/items', require('./controllers/item_controller'))
+app.use('/inspections', require('./controllers/inspections_controller'))
 
 // Root Index
 app.get('/', (req, res) => {
     res.json({
-        message: 'hello world'
+        message: 'This only means that the backend is working properly!'
     })
 })
 
