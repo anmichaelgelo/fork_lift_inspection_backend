@@ -46,5 +46,24 @@
 
 <hr />
 
-### Create/Update an inspection record
-<code id="post-checklist"></code>
+### Create/Update an inspection record by passing these parameters
+<code id="post-checklist">{
+    "name": "testing 1",
+    "lift": "testing",
+    "hours": "13000",
+    "date": "2023-02-08",
+    "tires": true,
+    "horn": true,
+    "battery": true,
+    "controls": false,
+    "overhead_guard": false,
+    "hydraulics": false,
+    "charger": true,
+    "fall_arrest": false,
+    "is_load_plate_displayed": true,
+    "is_operators_manual_present": true,
+    "is_forklift_clean": false,
+    "deficiencies_present": "12313123123",
+    "brakes": true,
+    "steering": false
+}</code>
