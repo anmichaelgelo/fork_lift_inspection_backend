@@ -7,7 +7,7 @@ require('dotenv').config()
 
 const corsOptions = { // http://expressjs.com/en/resources/middleware/cors.html
     origin: [
-        'http://localhost:3000'
+        'http://localhost:3000/'
     ],
 }
 
