@@ -4,7 +4,6 @@ const app = express()
 
 // Middleware / Config
 require('dotenv').config()
-
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -12,12 +11,13 @@ app.use(express.urlencoded({ extended: true }))
 // Controllers
 app.use('/inspections', require('./controllers/inspections_controller'))
 
-// Root Index
+// Root Index comment dito 
 app.get('/', (req, res) => {
     res.json({
         message: 'This only means that the backend is working properly!'
     })
 })
+// Ends here
 
 // 404 status
 app.get('*', (req, res) => {

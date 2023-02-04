@@ -69,6 +69,7 @@ inspections.put('/:id', (req, res) => {
         .then(inspection => {
             if(inspection !== null) {
                 res.json({
+                    data: inspection,
                     message: 'Inspection updated successfully'
                 })
             }else{
