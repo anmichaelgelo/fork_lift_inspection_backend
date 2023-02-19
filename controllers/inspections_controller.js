@@ -1,111 +1,96 @@
-const inspections = require('express').Router()
+const app = require('express').Router()
 const db = require('../models')
+const { Inspection } = db
 
 // INDEX
-inspections.get('/', (req, res) => {
-    db.Inspection.find()
-        .then(inspection => {
-            if(inspection.length > 0) {
-                res.status(200).json({
-                    count: inspection.length,
-                    data: inspection
-                })
-            }else{
-                res.json({
-                    count: 0,
-                    message: 'No records found',
-                    data: []
-                })
-            }
+app.get('/', async (req, res) => {
+    try {
+        const getInspections = await Inspection.findAll()
+
+        res.status(200).json({
+            data: getInspections,
+            message: '',
         })
-        .catch(err => {
-            res.status(500).json({
-                message: err
-            })
+
+    } catch (error) {
+        res.status(500).json({
+            message: error
         })
+    }
 });
 
 // STORE
-inspections.post('/', (req, res) => {
-    db.Inspection.create(req.body)
-        .then(inspection => {
-            res.status(200).json({
-                data: inspection,
-                message: 'Inspection added successfully'
-            })
+app.post('/', async (req, res) => {
+    try {
+        await Inspection.create(req.body) // * No Validation here yet
+
+        res.status(200).json({
+            message: 'Inspection added successfully'
         })
-        .catch(err => {
-            res.status(500).json({
-                message: err
-            })
+
+    } catch (error) {
+        res.status(500).json({
+            message: error
         })
+    }
 });
 
 // SHOW
-inspections.get('/:id', (req, res) => {
-    db.Inspection.findById(req.params.id)
-        .then(inspection => {
-            if(inspection !== null) {
-                res.status(200).json({
-                    data: inspection
-                })
-            }else{
-                res.status(404).json({
-                    message: 'No record found',
-                    data: null
-                })
-            }         
-        })
-        .catch(err => {
-            res.status(500).json({
-                message: err
+app.get('/:id', async (req, res) => {
+    try {
+        const findInpsection = await Inspection.findByPk(req.params.id)
+
+        if(findInpsection !== null) {
+            res.status(200).json({
+                message: '',
+                data: findInpsection
             })
+        }else{
+            res.status(404).json({
+                message: 'No record found',
+                data: {}
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: error
         })
+    }
 });
 
 // UPDATE
-inspections.put('/:id', (req, res) => {
-    db.Inspection.findByIdAndUpdate(req.params.id, req.body)
-        .then(inspection => {
-            if(inspection !== null) {
-                res.json({
-                    data: inspection,
-                    message: 'Inspection updated successfully'
-                })
-            }else{
-                res.status(404).json({
-                    message: 'No record found',
-                    data: null
-                })
-            }
+app.put('/:id', async (req, res) => {
+    try {
+        await Inspection.update(req.body, {
+            where: {id: req.params.id}
         })
-        .catch(err => {
-            res.status(500).json({
-                message: err
-            })
+
+        res.json({
+            message: 'Inspection updated successfully'
         })
+    } catch (error) {
+        res.status(500).json({
+            message: error
+        })
+    }
 });
 
 // DELETE
-inspections.delete('/:id', (req, res) => {
-    db.Inspection.findByIdAndDelete(req.params.id)
-        .then(inspection => {
-            if(inspection !== null) {
-                res.status(200).json({
-                    message: 'Inspection deleted successfully'
-                })
-            }else{
-                res.status(404).json({
-                    message: 'No record found',
-                    data: null
-                })
-            }
+app.delete('/:id', async (req, res) => {
+    try {
+        await Inspection.destroy({
+            where: { id: req.params.id }
         })
-        .catch(err => {
-            res.status(500).json({
-                message: err
-            })
+
+        res.status(200).json({
+            message: 'Inspection deleted successfully'
         })
+
+    } catch (error) {
+        res.status(500).json({
+            message: error
+        })   
+    }
 });
 
-module.exports = inspections
+module.exports = app

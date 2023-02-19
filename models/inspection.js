@@ -14,16 +14,21 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Inspection.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     name: {
-      tpye: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     date: {
-      tpye: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     lift: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.STRING,
       allowNull: false
     },
     hours: {
