@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     hours: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.STRING,
       allowNull: false
     },
     tires: {
@@ -83,14 +83,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     deficiencies_present: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.TEXT,
       allowNull: true
     }
   }, {
     sequelize,
     modelName: 'Inspection',
-    tableName: 'inspections',
-    timestamps: true
+    tableName: 'inspections'
   });
   return Inspection;
 };

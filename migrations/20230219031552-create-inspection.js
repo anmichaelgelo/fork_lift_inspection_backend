@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false
       },
       hours: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
         allowNull: false
       },
       tires: {
@@ -78,16 +78,18 @@ module.exports = {
         allowNull: false
       },
       deficiencies_present: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.TEXT,
         allowNull: true
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },
