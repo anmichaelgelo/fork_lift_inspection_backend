@@ -1,27 +1,96 @@
-const mongoose = require('mongoose')
-
-// Create Schema
-let inspectionSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    date: { type: Date, default: '' },
-    lift: { type: String, required: true },
-    hours: { type: String, required: true },
-
-    // Maintenance
-    tires: { type: Boolean, required: true },
-    horn: { type: Boolean, required: true },
-    battery: { type: Boolean, required: true },
-    controls: { type: Boolean, required: true },
-    brakes: { type: Boolean, required: true },
-    steering: { type: Boolean, required: true },
-    hydraulics: { type: Boolean, required: true },
-    overhead_guard: { type: Boolean, required: true },
-    charger: { type: Boolean, required: true },
-    fall_arrest: { type: Boolean, required: true },
-    is_load_plate_displayed: { type: Boolean, required: true },
-    is_operators_manual_present: { type: Boolean, required: true },
-    is_forklift_clean: { type: Boolean, required: true },
-    deficiencies_present: { type: String, default: "" }
-}, { timestamps: true })
-
-module.exports = mongoose.model('Inspection', inspectionSchema)
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Inspection extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  Inspection.init({
+    name: {
+      tpye: DataTypes.STRING,
+      allowNull: false,
+    },
+    date: {
+      tpye: DataTypes.STRING,
+      allowNull: false,
+    },
+    lift: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    hours: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    tires: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    horn: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    battery: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    controls: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    brakes: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    steering: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    hydraulics: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    overhead_guard: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    charger: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    fall_arrest: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    is_load_plate_displayed: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    is_operators_manual_present: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    is_forklift_clean: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    deficiencies_present: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
+    }
+  }, {
+    sequelize,
+    modelName: 'Inspection',
+    tableName: 'inspections',
+    timestamps: true
+  });
+  return Inspection;
+};
