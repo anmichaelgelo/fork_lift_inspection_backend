@@ -9,9 +9,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Controllers
-app.use('/inspections', require('./controllers/inspections_controller'))
+app.use('/api/v1/inspections', require('./controllers/inspections_controller'))
 
-// Root Index comment dito 
+// Root Index
 app.get('/', (req, res) => {
     res.json({
         message: 'This only means that the backend is working properly!'
